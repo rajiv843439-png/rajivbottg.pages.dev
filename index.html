@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RajivBotTG - Ultimate Telegram Bot Directory & Ecosystem</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Poppins', sans-serif; }
+        .glass { background: rgba(15, 23, 42, 0.9); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.08); }
+        .glass-card { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.05); }
+        .card-glow:hover { box-shadow: 0 0 35px rgba(59, 130, 246, 0.4); transform: translateY(-4px); border-color: rgba(59, 130, 246, 0.4); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .gradient-text { background: linear-gradient(135deg, #60a5fa 0%, #38bdf8 50%, #818cf8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: rgba(15, 23, 42, 0.5); }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(59, 130, 246, 0.5); border-radius: 4px; }
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 15px rgba(59, 130, 246, 0.2); }
+            50% { box-shadow: 0 0 30px rgba(59, 130, 246, 0.6); }
+        }
+        .pulse-effect { animation: pulseGlow 3s infinite; }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col justify-between selection:bg-blue-500 selection:text-white custom-scrollbar">
+
+    <!-- HEADER / NAVBAR -->
+    <header class="glass sticky top-0 z-40 border-b border-slate-800 px-4 lg:px-12 py-4 flex items-center justify-between shadow-2xl">
+        <div class="flex items-center space-x-3 cursor-pointer" onclick="resetView()">
+            <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-cyan-400 flex items-center justify-center shadow-lg shadow-blue-500/40 pulse-effect">
+                <i class="fa-solid fa-robot text-white text-xl"></i>
+            </div>
+            <div>
+                <span class="text-xl font-extrabold tracking-wider gradient-text">RajivBotTG</span>
+                <span class="block text-[10px] uppercase tracking-widest text-blue-400 font-semibold">rajivbottg.pages.dev</span>
+            </div>
+        </div>
+
+        <div class="flex items-center space-x-3">
+            <!-- Stats Pill -->
+            <div class="hidden md:flex items-center space-x-2 bg-slate-900/80 border border-slate-800 px-3.5 py-1.5 rounded-xl text-xs text-slate-300">
+                <i class="fa-solid fa-server text-emerald-400 animate-pulse"></i>
+                <span>Active Bots: <strong id="botCountBadge" class="text-white">0</strong></span>
+            </div>
+
+            <!-- Developer Button -->
+            <a href="https://t.me/Legend_boy_3" target="_blank" class="flex items-center space-x-2 bg-slate-900 hover:bg-slate-800 border border-slate-700 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition text-blue-400 hover:text-blue-300 shadow-md">
+                <i class="fa-brands fa-telegram text-base"></i>
+                <span class="hidden sm:inline">Developer</span>
+            </a>
+
+            <!-- Admin Toggle Button -->
+            <button onclick="openAdminModal()" class="flex items-center space-x-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition text-white shadow-lg shadow-blue-600/30">
+                <i class="fa-solid fa-shield-halved"></i>
+                <span class="hidden sm:inline">Admin Panel</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- MAIN CONTAINER -->
+    <main class="flex-grow container mx-auto px-4 py-8 max-w-7xl">
+        
+        <!-- HERO BANNER -->
+        <div class="text-center my-8 md:my-12 relative">
+            <div class="absolute inset-0 -z-10 flex items-center justify-center opacity-20 pointer-events-none blur-3xl">
+                <div class="w-96 h-96 bg-blue-600 rounded-full"></div>
+                <div class="w-96 h-96 bg-cyan-500 rounded-full"></div>
+            </div>
+
+            <span class="inline-flex items-center space-x-2 bg-blue-500/10 border border-blue-500/20 text-blue-400 px-4 py-1.5 rounded-full text-xs font-semibold mb-4">
+                <i class="fa-solid fa-bolt text-amber-400"></i>
+                <span>Ultimate Telegram Bot Directory & Ecosystem</span>
+            </span>
+
+            <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight mb-4">
+                Explore & Launch <span class="gradient-text">Elite Telegram Bots</span>
+            </h1>
+            <p class="text-slate-400 max-w-2xl mx-auto text-sm sm:text-base leading-relaxed">
+                Your premier hub for high-performance Telegram mini-apps, music bots, AI tools, and gaming bots. Tap 'Open' to launch instantly.
+            </p>
+
+            <!-- SEARCH, CATEGORY & SORT CONTROLS -->
+            <div class="mt-8 flex flex-col md:flex-row items-center justify-center gap-3 max-w-4xl mx-auto">
+                <div class="relative w-full">
+                    <i class="fa-solid fa-search absolute left-4 top-3.5 text-slate-400"></i>
+                    <input type="text" id="searchInput" oninput="filterAndSortBots()" placeholder="Search by bot name, username or description..." 
+                        class="w-full bg-slate-900/90 border border-slate-800 rounded-2xl pl-11 pr-4 py-3 text-sm focus:outline-none focus:border-blue-500 transition shadow-inner text-slate-100 placeholder-slate-500">
+                </div>
+                
+                <select id="categoryFilter" onchange="filterAndSortBots()" class="w-full md:w-48 bg-slate-900/90 border border-slate-800 rounded-2xl px-4 py-3 text-sm focus:outline-none focus:border-blue-500 transition cursor-pointer text-slate-200">
+                    <option value="All">All Categories</option>
+                    <option value="Gaming">Gaming</option>
+                    <option value="Music">Music</option>
+                    <option value="AI & Tools">AI & Tools</option>
+                    <option value="Utility">Utility</option>
+                    <option value="Entertainment">Entertainment</option>
+                </select>
+
+                <select id="sortFilter" onchange="filterAndSortBots()" class="w-full md:w-44 bg-slate-900/90 border border-slate-800 rounded-2xl px-4 py-3 text-sm focus:outline-none focus:border-blue-500 transition cursor-pointer text-slate-200">
+                    <option value="newest">Newest First</option>
+                    <option value="popular">Most Popular</option>
+                    <option value="az">A to Z</option>
+                </select>
+            </div>
+
+            <!-- QUICK CATEGORY PILLS -->
+            <div class="mt-6 flex flex-wrap items-center justify-center gap-2">
+                <button onclick="setCategoryTab('All')" class="cat-pill px-3.5 py-1.5 rounded-xl text-xs font-medium bg-blue-600 text-white transition shadow-sm">All</button>
+                <button onclick="setCategoryTab('Gaming')" class="cat-pill px-3.5 py-1.5 rounded-xl text-xs font-medium bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800 transition">🎮 Gaming</button>
+                <button onclick="setCategoryTab('Music')" class="cat-pill px-3.5 py-1.5 rounded-xl text-xs font-medium bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800 transition">🎵 Music</button>
+                <button onclick="setCategoryTab('AI & Tools')" class="cat-pill px-3.5 py-1.5 rounded-xl text-xs font-medium bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800 transition">🤖 AI & Tools</button>
+                <button onclick="setCategoryTab('Utility')" class="cat-pill px-3.5 py-1.5 rounded-xl text-xs font-medium bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800 transition">⚡ Utility</button>
+                <button onclick="setCategoryTab('Entertainment')" class="cat-pill px-3.5 py-1.5 rounded-xl text-xs font-medium bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800 transition">🎉 Entertainment</button>
+            </div>
+        </div>
+
+        <!-- BOTS GRID CONTAINER -->
+        <div id="botsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Populated dynamically -->
+        </div>
+
+        <!-- EMPTY STATE -->
+        <div id="emptyState" class="hidden text-center py-20">
+            <div class="w-16 h-16 bg-slate-900 border border-slate-800 rounded-2xl flex items-center justify-center mx-auto mb-4 text-slate-500 text-2xl shadow-inner">
+                <i class="fa-solid fa-ghost"></i>
+            </div>
+            <h3 class="text-lg font-semibold text-slate-300">No Telegram bots found</h3>
+            <p class="text-slate-500 text-sm mt-1">Try adjusting your search criteria or add new bots using the Admin Panel.</p>
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-slate-900 bg-slate-950 py-8 px-4 text-center text-xs text-slate-500">
+        <div class="container mx-auto max-w-7xl flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p>&copy; 2026 <strong class="text-slate-300">RajivBotTG</strong> (rajivbottg.pages.dev). All rights reserved.</p>
+            <div class="flex items-center space-x-4">
+                <a href="https://t.me/Legend_boy_3" target="_blank" class="hover:text-blue-400 transition"><i class="fa-brands fa-telegram mr-1"></i> Developer Profile</a>
+                <span class="text-slate-700">|</span>
+                <span class="text-emerald-400"><i class="fa-solid fa-circle text-[8px] mr-1"></i> Cloudflare Pages Active</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ADMIN LOGIN / DASHBOARD MODAL -->
+    <div id="adminModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-md hidden p-4">
+        <div class="glass w-full max-w-2xl rounded-3xl p-6 md:p-8 border border-slate-800 shadow-2xl relative max-h-[90vh] overflow-y-auto custom-scrollbar">
+            <button onclick="closeAdminModal()" class="absolute top-5 right-5 w-9 h-9 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-400 hover:text-white flex items-center justify-center transition">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+
+            <!-- LOGIN VIEW -->
+            <div id="loginView">
+                <div class="text-center mb-6">
+                    <div class="w-14 h-14 rounded-2xl bg-blue-600/20 border border-blue-500/30 flex items-center justify-center mx-auto mb-3 text-blue-400 text-2xl shadow-lg">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold">Admin Panel Access</h2>
+                    <p class="text-slate-400 text-xs mt-1">Enter secure password to manage RajivBotTG inventory</p>
+                </div>
+                <form onsubmit="handleLogin(event)" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-medium text-slate-400 mb-1.5">Secure Password</label>
+                        <div class="relative">
+                            <i class="fa-solid fa-lock absolute left-4 top-3.5 text-slate-500"></i>
+                            <input type="password" id="adminPasswordInput" required placeholder="Enter admin password..." 
+                                class="w-full bg-slate-900 border border-slate-800 rounded-2xl pl-11 pr-4 py-3 text-sm focus:outline-none focus:border-blue-500 transition text-slate-100">
+                        </div>
+                    </div>
+                    <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-semibold py-3.5 rounded-2xl text-sm transition shadow-lg shadow-blue-600/30">
+                        Authorize Access
+                    </button>
+                </form>
+            </div>
+
+            <!-- DASHBOARD VIEW -->
+            <div id="dashboardView" class="hidden">
+                <div class="flex items-center justify-between mb-6 pb-4 border-b border-slate-800">
+                    <div>
+                        <h2 class="text-xl font-bold flex items-center space-x-2">
+                            <span>Admin Control Center</span>
+                            <span class="text-[10px] bg-emerald-500/20 text-emerald-400 px-2.5 py-0.5 rounded-full border border-emerald-500/30 font-semibold uppercase">Authorized</span>
+                        </h2>
+                        <p class="text-slate-400 text-xs mt-0.5">Publish new bots, update badges, or remove entries</p>
+                    </div>
+                    <button onclick="handleLogout()" class="text-xs bg-rose-500/20 hover:bg-rose-500/30 text-rose-400 px-3.5 py-2 rounded-xl border border-rose-500/30 font-medium transition">
+                        <i class="fa-solid fa-right-from-bracket mr-1"> Logout</i>
+                    </button>
+                </div>
+
+                <!-- ADD / EDIT BOT FORM -->
+                <form onsubmit="handleSaveBot(event)" class="space-y-4 bg-slate-900/60 p-5 rounded-2xl border border-slate-800">
+                    <input type="hidden" id="editBotId" value="">
+                    <h3 id="formTitle" class="text-sm font-bold text-slate-200 flex items-center">
+                        <i class="fa-solid fa-plus-circle text-blue-400 mr-2 text-base"></i> Add New Telegram Bot
+                    </h3>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-medium text-slate-400 mb-1">Bot Name</label>
+                            <input type="text" id="botName" required placeholder="e.g. Carrom Master Pro" 
+                                class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:border-blue-500 text-slate-100">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-slate-400 mb-1">Telegram Username (@bot)</label>
+                            <input type="text" id="botUsername" required placeholder="e.g. carrom_pool_bot" 
+                                class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:border-blue-500 text-slate-100">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-medium text-slate-400 mb-1">Category</label>
+                            <select id="botCategory" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:border-blue-500 text-slate-100">
+                                <option value="Gaming">Gaming</option>
+                                <option value="Music">Music</option>
+                                <option value="AI & Tools">AI & Tools</option>
+                                <option value="Utility">Utility</option>
+                                <option value="Entertainment">Entertainment</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-slate-400 mb-1">Profile Image URL</label>
+                            <input type="url" id="botImage" required placeholder="https://images.unsplash.com/..." 
+                                class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:border-blue-500 text-slate-100">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-medium text-slate-400 mb-1">Short Description</label>
+                        <textarea id="botDescription" rows="2" required placeholder="Describe features of this Telegram bot..." 
+                            class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:border-blue-500 text-slate-100"></textarea>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-medium text-slate-400 mb-1">Direct Telegram Link (Optional)</label>
+                            <input type="url" id="botCustomLink" placeholder="https://t.me/your_bot" 
+                                class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:border-blue-500 text-slate-100">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-slate-400 mb-1">Badge Tag (Optional)</label>
+                            <input type="text" id="botBadge" placeholder="e.g. ⭐ Featured / 🔥 Trending" 
+                                class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:border-blue-500 text-slate-100">
+                        </div>
+                    </div>
+
+                    <div class="flex items-center space-x-3 pt-2">
+                        <button type="submit" id="saveBtn" class="flex-grow bg-blue-600 hover:bg-blue-500 text-white font-semibold py-3 rounded-xl text-sm transition shadow-md">
+                            Publish Bot to Directory
+                        </button>
+                        <button type="button" id="cancelEditBtn" onclick="resetForm()" class="hidden bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold px-4 py-3 rounded-xl text-sm transition">
+                            Cancel
+                        </button>
+                    </div>
+                </form>
+
+                <!-- EXISTING BOTS MANAGEMENT LIST -->
+                <div class="mt-6">
+                    <h3 class="text-sm font-semibold text-slate-200 mb-3"><i class="fa-solid fa-list text-blue-400 mr-1.5"></i> Manage Published Bots (<span id="adminBotCount">0</span>)</h3>
+                    <div id="adminBotsList" class="space-y-2.5 max-h-64 overflow-y-auto pr-1 custom-scrollbar">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <!-- BACKUP / RESTORE / RESET ACTIONS -->
+                <div class="mt-6 pt-6 border-t border-slate-800 flex flex-wrap items-center justify-between gap-3">
+                    <div class="flex items-center space-x-2">
+                        <button onclick="exportData()" class="bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 px-3.5 py-2 rounded-xl text-xs font-medium transition">
+                            <i class="fa-solid fa-download mr-1.5 text-blue-400"></i> Export JSON
+                        </button>
+                        <button onclick="importDataPrompt()" class="bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 px-3.5 py-2 rounded-xl text-xs font-medium transition">
+                            <i class="fa-solid fa-upload mr-1.5 text-emerald-400"></i> Import JSON
+                        </button>
+                    </div>
+                    <button onclick="resetToDefaults()" class="bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/30 text-rose-400 px-3.5 py-2 rounded-xl text-xs font-medium transition">
+                        <i class="fa-solid fa-rotate-right mr-1.5"></i> Reset Default Bots
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT MEGA ENGINE -->
+    <script>
+        const defaultBots = [
+            {
+                id: 1,
+                name: "Carrom Master Pool Bot",
+                username: "carrom_pool_bot",
+                category: "Gaming",
+                image: "https://images.unsplash.com/photo-1611996575749-79a3a250f948?w=300&h=300&fit=crop",
+                description: "Play real-time multiplayer carrom matches right inside Telegram with custom boards, striker controls, and queen strikes!",
+                link: "https://t.me/carrom_pool_bot",
+                badge: "🔥 Trending",
+                timestamp: Date.now() - 50000
+            },
+            {
+                id: 2,
+                name: "YouTube Music Streamer",
+                username: "yt_music_bot",
+                category: "Music",
+                image: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=300&h=300&fit=crop",
+                description: "Search and stream high-quality music directly inside Telegram voice chats using yt-dlp & PyTgCalls backend.",
+                link: "https://t.me/yt_music_bot",
+                badge: "⭐ Featured",
+                timestamp: Date.now() - 40000
+            },
+            {
+                id: 3,
+                name: "Google Gemini AI Bot",
+                username: "rajiv_ai_bot",
+                category: "AI & Tools",
+                image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=300&h=300&fit=crop",
+                description: "Your smart AI assistant powered by Google AI Studio API for instant answers, code generation, and 3D visual prompts.",
+                link: "https://t.me/rajiv_ai_bot",
+                badge: "🤖 Popular",
+                timestamp: Date.now() - 30000
+            },
+            {
+                id: 4,
+                name: "Free Fire Tournament Bot",
+                username: "ff_tourney_bot",
+                category: "Gaming",
+                image: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=300&h=300&fit=crop",
+                description: "Khelega Free Fire? Register for daily custom room matches, squad tournaments, and instant prize distribution.",
+                link: "https://t.me/ff_tourney_bot",
+                badge: "🎮 Hot",
+                timestamp: Date.now() - 20000
+            },
+            {
+                id: 5,
+                name: "Telegram Banner & Intro Maker",
+                username: "dark_friends_bot",
+                category: "Utility",
+                image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=300&h=300&fit=crop",
+                description: "Create custom 9:16 vertical welcome posters, group welcome banners, and 8-second cinematic intro videos.",
+                link: "https://t.me/dark_friends_bot",
+                badge: "✨ Creative",
+                timestamp: Date.now() - 10000
+            }
+        ];
+
+        let bots = JSON.parse(localStorage.getItem('rajiv_mega_bots')) || defaultBots;
+        let isAdminLoggedIn = sessionStorage.getItem('rajiv_admin_auth') === 'true';
+        let currentCategoryTab = 'All';
+
+        window.onload = function() {
+            filterAndSortBots();
+            if (isAdminLoggedIn) {
+                showDashboard();
+            }
+        };
+
+        function resetView() {
+            document.getElementById('searchInput').value = '';
+            document.getElementById('categoryFilter').value = 'All';
+            setCategoryTab('All');
+        }
+
+        function setCategoryTab(cat) {
+            currentCategoryTab = cat;
+            document.getElementById('categoryFilter').value = cat;
+            
+            // Highlight active button
+            document.querySelectorAll('.cat-pill').forEach(btn => {
+                if (btn.textContent.includes(cat) || (cat === 'All' && btn.textContent === 'All')) {
+                    btn.className = "cat-pill px-3.5 py-1.5 rounded-xl text-xs font-medium bg-blue-600 text-white transition shadow-sm";
+                } else {
+                    btn.className = "cat-pill px-3.5 py-1.5 rounded-xl text-xs font-medium bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800 transition";
+                }
+            });
+            filterAndSortBots();
+        }
+
+        function filterAndSortBots() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const category = document.getElementById('categoryFilter').value;
+            const sort = document.getElementById('sortFilter').value;
+
+            // Sync tab if dropdown changed
+            if (category !== currentCategoryTab) {
+                currentCategoryTab = category;
+                document.querySelectorAll('.cat-pill').forEach(btn => {
+                    if (btn.textContent.includes(category) || (category === 'All' && btn.textContent === 'All')) {
+                        btn.className = "cat-pill px-3.5 py-1.5 rounded-xl text-xs font-medium bg-blue-600 text-white transition shadow-sm";
+                    } else {
+                        btn.className = "cat-pill px-3.5 py-1.5 rounded-xl text-xs font-medium bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800 transition";
+                    }
+                });
+            }
+
+            let filtered = bots.filter(bot => {
+                const matchesQuery = bot.name.toLowerCase().includes(query) || bot.description.toLowerCase().includes(query) || bot.username.toLowerCase().includes(query);
+                const matchesCategory = category === 'All' || bot.category === category;
+                return matchesQuery && matchesCategory;
+            });
+
+            // Sorting logic
+            if (sort === 'newest') {
+                filtered.sort((a, b) => b.timestamp - a.timestamp);
+            } else if (sort === 'popular') {
+                filtered.sort((a, b) => b.id - a.id);
+            } else if (sort === 'az') {
+                filtered.sort((a, b) => a.name.localeCompare(b.name));
+            }
+
+            renderBots(filtered);
+            document.getElementById('botCountBadge').textContent = bots.length;
+            document.getElementById('adminBotCount').textContent = bots.length;
+        }
+
+        function renderBots(list) {
+            const grid = document.getElementById('botsGrid');
+            const emptyState = document.getElementById('emptyState');
+            grid.innerHTML = '';
+
+            if (list.length === 0) {
+                emptyState.classList.remove('hidden');
+                return;
+            } else {
+                emptyState.classList.add('hidden');
+            }
+
+            list.forEach(bot => {
+                const tgLink = bot.link || `https://t.me/${bot.username.replace('@','')}`;
+                const badgeHtml = bot.badge ? `<span class="text-[10px] bg-amber-500/10 text-amber-400 font-semibold px-2.5 py-0.5 rounded-full border border-amber-500/20">${bot.badge}</span>` : '';
+                
+                const card = document.createElement('div');
+                card.className = "glass-card rounded-3xl p-5 border border-slate-800 card-glow flex flex-col justify-between shadow-xl";
+                card.innerHTML = `
+                    <div>
+                        <div class="flex items-start justify-between mb-4">
+                            <div class="flex items-center space-x-3.5">
+                                <img src="${bot.image}" alt="${bot.name}" class="w-14 h-14 rounded-2xl object-cover border border-slate-700 shadow-md">
+                                <div>
+                                    <span class="text-[11px] bg-blue-500/10 text-blue-400 font-semibold px-2.5 py-0.5 rounded-full border border-blue-500/20">${bot.category}</span>
+                                    <h3 class="text-base font-bold mt-1 text-slate-100 leading-tight">${bot.name}</h3>
+                                    <p class="text-xs text-slate-400 font-mono">@${bot.username.replace('@','')}</p>
+                                </div>
+                            </div>
+                            ${badgeHtml}
+                        </div>
+                        <p class="text-xs text-slate-300 leading-relaxed mb-6 line-clamp-3">${bot.description}</p>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <a href="${tgLink}" target="_blank" class="flex-grow bg-blue-600 hover:bg-blue-500 text-white font-semibold py-2.5 rounded-xl text-xs flex items-center justify-center space-x-2 transition shadow-md shadow-blue-600/30">
+                            <i class="fa-brands fa-telegram text-base"></i>
+                            <span>Open Telegram Bot</span>
+                        </a>
+                        <button onclick="shareBot('${bot.name}', '${tgLink}')" class="w-10 h-10 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 hover:text-white flex items-center justify-center transition" title="Share Bot">
+                            <i class="fa-solid fa-share-nodes text-xs"></i>
+                        </button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function shareBot(name, link) {
+            if (navigator.share) {
+                navigator.share({ title: name, text: `Check out this amazing Telegram bot: ${name}`, url: link }).catch(() => {});
+            } else {
+                navigator.clipboard.writeText(link);
+                alert(`Bot link copied to clipboard: ${link}`);
+            }
+        }
+
+        // Admin Modal Controls
+        function openAdminModal() {
+            document.getElementById('adminModal').classList.remove('hidden');
+            if (isAdminLoggedIn) {
+                showDashboard();
+            } else {
+                showLogin();
+            }
+        }
+
+        function closeAdminModal() {
+            document.getElementById('adminModal').classList.add('hidden');
+        }
+
+        function showLogin() {
+            document.getElementById('loginView').classList.remove('hidden');
+            document.getElementById('dashboardView').classList.add('hidden');
+        }
+
+        function showDashboard() {
+            document.getElementById('loginView').classList.add('hidden');
+            document.getElementById('dashboardView').classList.remove('hidden');
+            renderAdminBotsList();
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const pass = document.getElementById('adminPasswordInput').value;
+            if (pass === 'Rajiv@78081') {
+                isAdminLoggedIn = true;
+                sessionStorage.setItem('rajiv_admin_auth', 'true');
+                document.getElementById('adminPasswordInput').value = '';
+                showDashboard();
+            } else {
+                alert('Incorrect Admin Password! Please try again.');
+            }
+        }
+
+        function handleLogout() {
+            isAdminLoggedIn = false;
+            sessionStorage.removeItem('rajiv_admin_auth');
+            showLogin();
+        }
+
+        function handleSaveBot(e) {
+            e.preventDefault();
+            const editId = document.getElementById('editBotId').value;
+            const name = document.getElementById('botName').value;
+            const username = document.getElementById('botUsername').value;
+            const category = document.getElementById('botCategory').value;
+            const image = document.getElementById('botImage').value;
+            const description = document.getElementById('botDescription').value;
+            const customLink = document.getElementById('botCustomLink').value;
+            const badge = document.getElementById('botBadge').value;
+
+            if (editId) {
+                // Edit existing
+                bots = bots.map(b => {
+                    if (b.id == editId) {
+                        return {
+                            ...b,
+                            name,
+                            username,
+                            category,
+                            image,
+                            description,
+                            link: customLink || `https://t.me/${username.replace('@','')}`,
+                            badge
+                        };
+                    }
+                    return b;
+                });
+                alert('Bot successfully updated!');
+            } else {
+                // Add new
+                const newBot = {
+                    id: Date.now(),
+                    name,
+                    username,
+                    category,
+                    image,
+                    description,
+                    link: customLink || `https://t.me/${username.replace('@','')}`,
+                    badge: badge || '✨ New',
+                    timestamp: Date.now()
+                };
+                bots.unshift(newBot);
+                alert('Bot successfully published to directory!');
+            }
+
+            localStorage.setItem('rajiv_mega_bots', JSON.stringify(bots));
+            filterAndSortBots();
+            renderAdminBotsList();
+            resetForm();
+        }
+
+        function editBot(id) {
+            const bot = bots.find(b => b.id == id);
+            if (!bot) return;
+
+            document.getElementById('editBotId').value = bot.id;
+            document.getElementById('botName').value = bot.name;
+            document.getElementById('botUsername').value = bot.username;
+            document.getElementById('botCategory').value = bot.category;
+            document.getElementById('botImage').value = bot.image;
+            document.getElementById('botDescription').value = bot.description;
+            document.getElementById('botCustomLink').value = bot.link || '';
+            document.getElementById('botBadge').value = bot.badge || '';
+
+            document.getElementById('formTitle').innerHTML = '<i class="fa-solid fa-pen-to-square text-amber-400 mr-2 text-base"></i> Edit Telegram Bot';
+            document.getElementById('saveBtn').textContent = 'Update Bot Details';
+            document.getElementById('cancelEditBtn').classList.remove('hidden');
+        }
+
+        function resetForm() {
+            document.getElementById('editBotId').value = '';
+            document.getElementById('formTitle').innerHTML = '<i class="fa-solid fa-plus-circle text-blue-400 mr-2 text-base"></i> Add New Telegram Bot';
+            document.getElementById('saveBtn').textContent = 'Publish Bot to Directory';
+            document.getElementById('cancelEditBtn').classList.add('hidden');
+            // reset form inputs except password modal
+            document.getElementById('botName').value = '';
+            document.getElementById('botUsername').value = '';
+            document.getElementById('botImage').value = '';
+            document.getElementById('botDescription').value = '';
+            document.getElementById('botCustomLink').value = '';
+            document.getElementById('botBadge').value = '';
+        }
+
+        function deleteBot(id) {
+            if (confirm('Are you sure you want to delete this bot from the directory?')) {
+                bots = bots.filter(b => b.id != id);
+                localStorage.setItem('rajiv_mega_bots', JSON.stringify(bots));
+                filterAndSortBots();
+                renderAdminBotsList();
+            }
+        }
+
+        function renderAdminBotsList() {
+            const listContainer = document.getElementById('adminBotsList');
+            listContainer.innerHTML = '';
+
+            if (bots.length === 0) {
+                listContainer.innerHTML = '<p class="text-xs text-slate-500 text-center py-4">No bots published yet.</p>';
+                return;
+            }
+
+            bots.forEach(bot => {
+                const item = document.createElement('div');
+                item.className = "flex items-center justify-between bg-slate-900 border border-slate-800 p-3 rounded-xl";
+                item.innerHTML = `
+                    <div class="flex items-center space-x-3 overflow-hidden">
+                        <img src="${bot.image}" class="w-10 h-10 rounded-xl object-cover flex-shrink-0 border border-slate-800">
+                        <div class="truncate">
+                            <h4 class="text-xs font-bold text-slate-200 truncate">${bot.name}</h4>
+                            <p class="text-[10px] text-slate-400 font-mono">@${bot.username.replace('@','')}</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-1.5 flex-shrink-0 ml-2">
+                        <button onclick="editBot(${bot.id})" class="text-amber-400 hover:text-amber-300 text-xs px-2.5 py-1.5 rounded-lg bg-amber-500/10 border border-amber-500/20 transition" title="Edit Bot">
+                            <i class="fa-solid fa-pen"></i>
+                        </button>
+                        <button onclick="deleteBot(${bot.id})" class="text-rose-400 hover:text-rose-300 text-xs px-2.5 py-1.5 rounded-lg bg-rose-500/10 border border-rose-500/20 transition" title="Delete Bot">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </div>
+                `;
+                listContainer.appendChild(item);
+            });
+        }
+
+        function exportData() {
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(bots, null, 2));
+            const downloadAnchor = document.createElement('a');
+            downloadAnchor.setAttribute("href", dataStr);
+            downloadAnchor.setAttribute("download", "rajiv_bots_backup.json");
+            document.body.appendChild(downloadAnchor);
+            downloadAnchor.click();
+            downloadAnchor.remove();
+        }
+
+        function importDataPrompt() {
+            const jsonInput = prompt("Paste your exported JSON bot data here:");
+            if (jsonInput) {
+                try {
+                    const parsed = JSON.parse(jsonInput);
+                    if (Array.isArray(parsed)) {
+                        bots = parsed;
+                        localStorage.setItem('rajiv_mega_bots', JSON.stringify(bots));
+                        filterAndSortBots();
+                        renderAdminBotsList();
+                        alert('Bots successfully imported!');
+                    } else {
+                        alert('Invalid JSON format.');
+                    }
+                } catch (err) {
+                    alert('Error parsing JSON data.');
+                }
+            }
+        }
+
+        function resetToDefaults() {
+            if (confirm('Reset all bots to default sample items?')) {
+                bots = defaultBots;
+                localStorage.setItem('rajiv_mega_bots', JSON.stringify(bots));
+                filterAndSortBots();
+                renderAdminBotsList();
+                alert('Reset successful!');
+            }
+        }
+    </script>
+</body>
+</html>
